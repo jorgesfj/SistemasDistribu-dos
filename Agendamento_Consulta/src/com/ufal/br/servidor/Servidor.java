@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.ufal.br.model.Consulta;
+
 public class Servidor {
 	
 	private ServerSocket serverSocket;
@@ -30,13 +32,15 @@ public class Servidor {
 	//4 - Tratar a conversação entre cliente e servidor
 	//4.1 - Fechar o socket de comunicação entre cliente/servidor
 	//4.2 - Fechar streams de entrada e saída
-	private void tratarConexao(Socket socket) throws IOException {
+	private void tratarConexao(Socket socket) throws IOException, ClassNotFoundException {
 		try {
 			ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 			ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+			//Métodos
+			Consulta consulta = (Consulta) input.readObject();
+			System.out.println(consulta.getNomePaciente());
 			input.close();
 			output.close();
-			//Métodos
 		}catch(IOException e) {
 			System.out.println("Problema no tratamento da conexão");
 			System.out.println("Erro: " + e.getMessage());
@@ -55,8 +59,9 @@ public class Servidor {
 			servidor.tratarConexao(socket);
 			System.out.println("Cliente Finalizado");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Erro no servidor: " + e.getMessage());
+		}catch (ClassNotFoundException e) {
+			System.out.println("Erro no cast" + e.getMessage());
 		}
 		
 	}

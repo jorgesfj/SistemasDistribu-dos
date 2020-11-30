@@ -10,8 +10,16 @@ import java.util.logging.Logger;
 import com.ufal.br.model.Consulta;
 
 public class Cliente {
-	public Consulta agendarConsulta(int id, String nomePaciente, int dia, int hora, int minuto, String descricao) {
-		Consulta consulta = new Consulta(id, nomePaciente, dia, hora, minuto, descricao);
+	public Consulta agendarConsulta() {
+		Scanner ler = new Scanner(System.in);
+		
+		System.out.println("Digite o Seu nome: ");
+		String nomePaciente = ler.next();
+		
+		System.out.println("Descreva a consulta: ");
+		String descricao = ler.next();
+		
+		Consulta consulta = new Consulta(nomePaciente,descricao);
 		
 		return consulta;
 	}
@@ -26,24 +34,20 @@ public class Cliente {
 			ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 			//instânciando o envio
 			ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-			Scanner ler = new Scanner(System.in);
 			
-			System.out.println("Digite o Seu nome: ");
-			String nomePaciente = ler.next();
+			Consulta consulta = cliente.agendarConsulta();
 			
-			System.out.println("Digite o dia que você quer se consultar: ");
-			int dia = ler.nextInt();
+			output.writeObject(consulta);
+			output.flush();
+//			
+//			boolean retorno = input.readBoolean();
+//			
+//			if(retorno) {
+//				System.out.println("Horário Livre, Pode entrar.");
+//			}else {
+//				System.out.println("Horário Ocupado, espere na fila.");
+//			}
 			
-			System.out.println("Digite a Hora da consulta: (só o inteiro) ");
-			int hora = ler.nextInt();
-			
-			System.out.println("Digite qual minuto começará a consulta: ");
-			int minuto = ler.nextInt();
-			
-			System.out.println("Descreva a colsulta: ");
-			String descricao = ler.next();
-			
-			Consulta consulta = cliente.agendarConsulta(0, nomePaciente, dia, hora, minuto, descricao);
 			//fechando o envio
 			input.close();
 			//fechando o recebimento
