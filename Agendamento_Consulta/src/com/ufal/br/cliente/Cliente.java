@@ -11,6 +11,7 @@ import com.ufal.br.model.Consulta;
 
 public class Cliente {
 	public Consulta agendarConsulta() {
+		System.out.println("-----AGENDAR CONSULTA-------");
 		Scanner ler = new Scanner(System.in);
 		
 		System.out.println("Digite o Seu nome: ");
@@ -38,6 +39,16 @@ public class Cliente {
 			Consulta consulta = cliente.agendarConsulta();
 			
 			output.writeObject(consulta);
+			output.flush();
+			
+			Consulta consulta2 = cliente.agendarConsulta();
+			
+			output.writeObject(consulta2);
+			output.flush();
+			
+			Consulta consulta3 = cliente.agendarConsulta();
+			
+			output.writeObject(consulta3);
 			output.flush();
 //			
 //			boolean retorno = input.readBoolean();
