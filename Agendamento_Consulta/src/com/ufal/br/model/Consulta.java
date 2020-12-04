@@ -1,14 +1,14 @@
 package com.ufal.br.model;
-
 import java.io.Serializable;
 
 public class Consulta implements Serializable{
-	
+	private int id;
 	private String nomePaciente;
 	private String descricao;
 	
 	
-	public Consulta (String nomePaciente, String descricao) {
+	public Consulta (int id,String nomePaciente, String descricao) {
+		this.id = id;
 		this.nomePaciente = nomePaciente;
 		this.descricao = descricao;
 	}
@@ -27,6 +27,12 @@ public class Consulta implements Serializable{
 		this.descricao = descricao;
 	}
 	
+	public int getId() {
+		return id;
+	}
 	
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 }

@@ -1,22 +1,56 @@
 package com.ufal.br.model;
 
-public class Threadex implements Runnable{
+public class Threadex extends Thread{
 	Consulta consulta;
-	
-	public Threadex(Consulta consulta) {
+	Horario h1;
+	Horario h2;
+	Horario h3;		
+	public Threadex(Horario h1, Horario h2, Horario h3, Consulta consulta) {
 		this.consulta = consulta;
+		this.h1 = h1;
+		this.h2 = h2;
+		this.h3 = h3;
 	}
-	
 	@Override
 	public void run() {
-		System.out.println("O Paciente "+ consulta.getNomePaciente()+ " está no consultório.");
 		try {
-			Thread.sleep(3000);
+			while (true) {
+				System.out.println("Paciente "+ consulta.getNomePaciente()+" esta aguardando...");
+				if(h1.getPacienteNaConsulta() == 0) {
+					h1.NoConsultorio(consulta);
+					System.out.println("Paciente " + consulta.getNomePaciente()+ " está na consulta H1");
+					Thread.sleep(3000);					
+					h1.TerminarConsulta();
+					System.out.println("Paciente " + consulta.getNomePaciente()+ " largou a consulta H1");
+				}else if(h2.getPacienteNaConsulta() == 0) {
+					h2.NoConsultorio(consulta);
+					System.out.println("Paciente " + consulta.getNomePaciente()+ " está a consulta H2");
+					Thread.sleep(3000);
+					h2.TerminarConsulta();
+					System.out.println("Paciente " + consulta.getNomePaciente()+ " largou a consulta H2");
+				}else if(h3.getPacienteNaConsulta() == 0){
+					h3.NoConsultorio(consulta);
+					System.out.println("Paciente " + consulta.getNomePaciente()+ " está na consulta H3");
+					Thread.sleep(3000);
+					h3.TerminarConsulta();
+					System.out.println("Paciente " + consulta.getNomePaciente()+ " largou a consulta H3");
+				}else {
+					
+					//devia botar ela para esperar porém nao sei como
+					//Thread.onSpinWait();// nao sei se isso será disperto pelo SignalAll()
+					//Thread.await();//nao funciona
+					h1.EsperarConsulta(this.currentThread());// tá diferente na foto que te mandei
+				}
+			}
+		
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
+/*		
+		
 	
+	*/
 	
 
+}
 }

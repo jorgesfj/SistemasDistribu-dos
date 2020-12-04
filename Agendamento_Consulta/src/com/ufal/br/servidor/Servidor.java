@@ -1,15 +1,13 @@
 package com.ufal.br.servidor;
 
 import java.io.IOException;
-
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import com.ufal.br.model.Consulta;
+import com.ufal.br.model.Horario;
 import com.ufal.br.model.Threadex;
 
 public class Servidor {
@@ -33,23 +31,17 @@ public class Servidor {
 		try {
 			ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 			ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-
-			Consulta consulta = (Consulta) input.readObject();
-			Consulta consulta2 = (Consulta) input.readObject();
-			Consulta consulta3 = (Consulta) input.readObject();
 			
-			Threadex t1 = new Threadex(consulta);
-			Threadex t2 = new Threadex(consulta2);
-			Threadex t3 = new Threadex(consulta3);
+			Horario h1 = new Horario();
+			Horario h2 = new Horario();
+			Horario h3 = new Horario();
 			
-			ExecutorService threadExecutor = Executors.newFixedThreadPool(10);
-			threadExecutor.execute(t1);
-			threadExecutor.execute(t2);
-			threadExecutor.execute(t3);
+			while(true) {
+				Consulta consulta = (Consulta) input.readObject();
+				Threadex t = new Threadex(h1,h2,h3, consulta);
+				t.start();			
+				}
 			
-			
-			input.close();
-			output.close();
 		}catch(IOException e) {
 			System.out.println("Problema no tratamento da conexão");
 			System.out.println("Erro: " + e.getMessage());

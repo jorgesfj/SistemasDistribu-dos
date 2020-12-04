@@ -20,7 +20,10 @@ public class Cliente {
 		System.out.println("Descreva a consulta: ");
 		String descricao = ler.next();
 		
-		Consulta consulta = new Consulta(nomePaciente,descricao);
+		System.out.println("Id da consulta: ");
+		int id = ler.nextInt();
+		
+		Consulta consulta = new Consulta(id,nomePaciente,descricao);
 		
 		return consulta;
 	}
@@ -36,35 +39,13 @@ public class Cliente {
 			//instânciando o envio
 			ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
 			
-			Consulta consulta = cliente.agendarConsulta();
+			while(true) {
+				Consulta consulta = cliente.agendarConsulta();
+				output.writeObject(consulta);
+				output.flush();
+			}
 			
-			output.writeObject(consulta);
-			output.flush();
-			
-			Consulta consulta2 = cliente.agendarConsulta();
-			
-			output.writeObject(consulta2);
-			output.flush();
-			
-			Consulta consulta3 = cliente.agendarConsulta();
-			
-			output.writeObject(consulta3);
-			output.flush();
-//			
-//			boolean retorno = input.readBoolean();
-//			
-//			if(retorno) {
-//				System.out.println("Horário Livre, Pode entrar.");
-//			}else {
-//				System.out.println("Horário Ocupado, espere na fila.");
-//			}
-			
-			//fechando o envio
-			input.close();
-			//fechando o recebimento
-			output.close();
-			//fechando o socket
-			socket.close();
+
 		}catch(IOException e) {
 			//tratando o erro
 			System.out.println("Erro no cliente: " + e);
