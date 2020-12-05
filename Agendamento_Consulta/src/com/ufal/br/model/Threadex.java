@@ -22,18 +22,21 @@ public class Threadex extends Thread{
 					Thread.sleep(3000);					
 					h1.TerminarConsulta();
 					System.out.println("Paciente " + consulta.getNomePaciente()+ " largou a consulta H1");
+					return;
 				}else if(h2.getPacienteNaConsulta() == 0) {
 					h2.NoConsultorio(consulta);
 					System.out.println("Paciente " + consulta.getNomePaciente()+ " está a consulta H2");
 					Thread.sleep(3000);
 					h2.TerminarConsulta();
 					System.out.println("Paciente " + consulta.getNomePaciente()+ " largou a consulta H2");
+					return;
 				}else if(h3.getPacienteNaConsulta() == 0){
 					h3.NoConsultorio(consulta);
 					System.out.println("Paciente " + consulta.getNomePaciente()+ " está na consulta H3");
 					Thread.sleep(3000);
 					h3.TerminarConsulta();
 					System.out.println("Paciente " + consulta.getNomePaciente()+ " largou a consulta H3");
+					return; 
 				}else {
 					
 					//devia botar ela para esperar porém nao sei como
