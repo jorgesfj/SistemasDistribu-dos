@@ -36,11 +36,17 @@ public class Servidor {
 			Horario h2 = new Horario();
 			Horario h3 = new Horario();
 			
-			while(true) {
+			
+			for(int i =0; i<=10; i++) {
 				Consulta consulta = (Consulta) input.readObject();
 				Threadex t = new Threadex(h1,h2,h3, consulta);
-				t.start();			
-				}
+				t.start();
+				
+			}
+			
+			input.close();
+			output.close();
+				
 			
 		}catch(IOException e) {
 			System.out.println("Problema no tratamento da conexão");

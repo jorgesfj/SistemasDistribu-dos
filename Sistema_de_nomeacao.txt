@@ -1,0 +1,9 @@
+Sistema Distribuídos - Sistema de nomeação
+
+Aluno: Jorge Soares de Farias Júnior
+Matrícula: 17112231
+
+Quando executar o cliente ele irá pedir para escrever o CPF, então executar separado o cliente dos servidores.
+
+link do github com o projeto:
+https://github.com/leovaldesz/SistemasDistribu-dos/tree/main/Sistema_de_Nomes

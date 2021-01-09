@@ -10,25 +10,14 @@ import java.util.logging.Logger;
 import com.ufal.br.model.Consulta;
 
 public class Cliente {
-	public Consulta agendarConsulta() {
-		System.out.println("-----AGENDAR CONSULTA-------");
-		Scanner ler = new Scanner(System.in);
-		
-		System.out.println("Digite o Seu nome: ");
-		String nomePaciente = ler.next();
-		
-		System.out.println("Descreva a consulta: ");
-		String descricao = ler.next();
-		
-		System.out.println("Id da consulta: ");
-		int id = ler.nextInt();
+	public Consulta agendarConsulta(String nomePaciente, String descricao, int id) {
 		
 		Consulta consulta = new Consulta(id,nomePaciente,descricao);
 		
 		return consulta;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		try{
 			//criando o socket para rodar na máquina local(localhost) e na porta 5555
@@ -38,14 +27,17 @@ public class Cliente {
 			ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 			//instânciando o envio
 			ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-			
-			while(true) {
-				Consulta consulta = cliente.agendarConsulta();
+
+
+			for(int i = 0; i<=10; i++) {
+				Consulta consulta = new Consulta(i+1, "Paciente " + i, "Consulta");
+				Thread.sleep(1000);
 				output.writeObject(consulta);
 				output.flush();
 			}
 			
-
+			input.close();
+			output.close();
 		}catch(IOException e) {
 			//tratando o erro
 			System.out.println("Erro no cliente: " + e);
