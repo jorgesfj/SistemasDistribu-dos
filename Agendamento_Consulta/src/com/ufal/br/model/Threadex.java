@@ -15,27 +15,27 @@ public class Threadex extends Thread{
 	public void run() {
 		try {
 			while (true) {
-				System.out.println(consulta.getNomePaciente()+" esta aguardando...");
+				System.out.println(consulta.getDescricao()+" "+  consulta.getNomePaciente()+" esta aguardando...");
 				if(h1.getPacienteNaConsulta() == 0) {
 					h1.NoConsultorio(consulta);
-					System.out.println(consulta.getNomePaciente()+ " está na consulta H1");
+					System.out.println(consulta.getDescricao() +" "+  consulta.getNomePaciente()+ " está na consulta H1");
 					Thread.sleep(3000);					
 					h1.TerminarConsulta();
-					System.out.println( consulta.getNomePaciente()+ " largou a consulta H1");
+					System.out.println(consulta.getDescricao() +  " "+ consulta.getNomePaciente()+ " largou a consulta H1");
 					return;
 				}else if(h2.getPacienteNaConsulta() == 0) {
 					h2.NoConsultorio(consulta);
-					System.out.println( consulta.getNomePaciente()+ " está a consulta H2");
+					System.out.println(consulta.getDescricao() +" "+  consulta.getNomePaciente()+ " está a consulta H2");
 					Thread.sleep(3000);
 					h2.TerminarConsulta();
-					System.out.println(consulta.getNomePaciente()+ " largou a consulta H2");
+					System.out.println(consulta.getDescricao() +" "+  consulta.getNomePaciente()+ " largou a consulta H2");
 					return;
 				}else if(h3.getPacienteNaConsulta() == 0){
 					h3.NoConsultorio(consulta);
-					System.out.println(consulta.getNomePaciente()+ " está na consulta H3");
+					System.out.println(consulta.getDescricao() + " "+ consulta.getNomePaciente()+ " está na consulta H3");
 					Thread.sleep(3000);
 					h3.TerminarConsulta();
-					System.out.println(consulta.getNomePaciente()+ " largou a consulta H3");
+					System.out.println(consulta.getDescricao() +" "+  consulta.getNomePaciente()+ " largou a consulta H3");
 					return; 
 				}else {
 					

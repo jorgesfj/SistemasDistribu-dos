@@ -19,25 +19,32 @@ public class Cliente {
 	
 	public static void main(String[] args) throws InterruptedException {
 		
-		try{
-			//criando o socket para rodar na máquina local(localhost) e na porta 5555
-			Socket socket = new Socket("localhost", 5555);
-			Cliente cliente = new Cliente();
-			//instânciando o recebimento
-			ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
-			//instânciando o envio
-			ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-
-
+		try{			
+			//Esse codigo serve para diferenciar os clientes e na hora da execucao saber qual consulta é de qual cliente
+			System.out.println("Digite o código do cliente: ");			
+			Scanner ler = new Scanner(System.in);
+			String nomeCliente = ler.next();
+		
+			
 			for(int i = 0; i<=10; i++) {
-				Consulta consulta = new Consulta(i+1, "Paciente " + i, "Consulta");
+				Socket socket = new Socket("localhost", 5555);
+				Cliente cliente = new Cliente();
+				
+				//instânciando o recebimento
+				ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+				//instânciando o envio
+				ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+				
+				Consulta consulta = new Consulta(i+1, "Paciente " + i, nomeCliente);
 				Thread.sleep(1000);
 				output.writeObject(consulta);
 				output.flush();
+				
+				input.close();
+				output.close();
 			}
 			
-			input.close();
-			output.close();
+			
 		}catch(IOException e) {
 			//tratando o erro
 			System.out.println("Erro no cliente: " + e);
