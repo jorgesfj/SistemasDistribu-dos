@@ -38,7 +38,7 @@ public class Servidor {
 			output.close();
 				
 		}catch(IOException e) {
-			System.out.println("Problema no tratamento da conexão");
+			System.out.println("Problema no tratamento da conexï¿½o");
 			System.out.println("Erro: " + e.getMessage());
 		}finally {
 			fecharSocket(socket);
@@ -48,7 +48,7 @@ public class Servidor {
 	public static void main(String[] args) {
 		try {
 			Servidor servidor = new Servidor();
-			System.out.println("Aguardando Conexão");
+			System.out.println("Aguardando Conexï¿½o");
 			servidor.criarServerSocket(5555);
 			
 			Horario h1 = new Horario();
