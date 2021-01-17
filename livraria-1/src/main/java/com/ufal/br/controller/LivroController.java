@@ -22,7 +22,7 @@ public class LivroController {
 	@Autowired
 	private LivroRepository repository;
 	
-	@GetMapping("/livros")
+	@GetMapping
 	public List findAll() {
 		return repository.findAll();
 	}
@@ -33,4 +33,19 @@ public class LivroController {
 	   return repository.save(livro);
 	}
 	
+	@PostMapping("/addlivros")
+	public List<Livro> createLivros(@RequestBody List<Livro> livros){
+		return repository.saveAll(livros);
+	}
+	
+	@GetMapping("/{nome}")
+	public Livro findLivroByNome(@PathVariable String nome) {
+		return repository.findByNome(nome);
+	}
+	
+	@DeleteMapping("/delete")
+	public String deleteLivro(@RequestBody Livro livro) {
+		repository.delete(livro);
+		return "Produto deletado" + livro.getLivroId();
+	}
 }

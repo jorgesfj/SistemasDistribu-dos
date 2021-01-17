@@ -14,6 +14,7 @@ public class Livro {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long livro_id;
 	private String nome;
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Autor autor;
 	private double preco;
